@@ -1,17 +1,18 @@
 // To parse this JSON data, do
 //
-//     final countryModel = countryModelFromJson(jsonString);
+//     final countryInfoModel = countryInfoModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<CountryModel> countryModelFromJson(String str) => List<CountryModel>.from(
-    json.decode(str).map((x) => CountryModel.fromJson(x)));
+List<CountryInfoModel> countryInfoModelFromJson(String str) =>
+    List<CountryInfoModel>.from(
+        json.decode(str).map((x) => CountryInfoModel.fromJson(x)));
 
-String countryModelToJson(List<CountryModel> data) =>
+String countryInfoModelToJson(List<CountryInfoModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class CountryModel {
-  CountryModel({
+class CountryInfoModel {
+  CountryInfoModel({
     required this.flags,
     required this.name,
     required this.capital,
@@ -21,7 +22,8 @@ class CountryModel {
   Name name;
   String capital;
 
-  factory CountryModel.fromJson(Map<String, dynamic> json) => CountryModel(
+  factory CountryInfoModel.fromJson(Map<String, dynamic> json) =>
+      CountryInfoModel(
         flags: Flags.fromJson(json["flags"]),
         name: Name.fromJson(json["name"]),
         capital: json["capital"].toString(),

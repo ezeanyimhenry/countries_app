@@ -9,8 +9,23 @@ class MyTheme with ChangeNotifier {
     return _isDark ? ThemeMode.dark : ThemeMode.light;
   }
 
+  currentLogo() {
+    print(_isDark);
+    String logo;
+    if (_isDark == true) {
+      logo = "images/logo.png";
+      // print(logo);
+    } else {
+      logo = "images/ex_logo.png";
+      // print(logo);
+    }
+    print(logo);
+    return logo;
+  }
+
   void switchTheme() {
     _isDark = !_isDark;
+    currentLogo();
     notifyListeners();
   }
 }
@@ -33,7 +48,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     currentTheme.addListener(() {
-      // print('Changes');
       setState(() {});
     });
   }
@@ -42,7 +56,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Countries',
+      title: 'Explore',
       // home: LanguageBuilder(
       //   useDeviceLanguage: false,
       //   defaultLanguage: 'en',
@@ -86,20 +100,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

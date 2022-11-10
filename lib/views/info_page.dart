@@ -1,19 +1,22 @@
-import 'package:countries_app/views/info_page.dart';
+import 'package:countries_app/views/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:countries_app/model/country_model.dart';
+import 'package:countries_app/model/country_info_model.dart';
 import 'package:countries_app/services/api_service.dart';
 import 'package:countries_app/app_bar.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Info extends StatefulWidget {
+  final String country;
+  const Info(this.country, {super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _HomeState createState() => _HomeState();
+  _InfoState createState() => _InfoState(country);
 }
 
-class _HomeState extends State<Home> {
-  late List<CountryModel>? _countryModel = [];
+class _InfoState extends State<Info> {
+  late List<CountryInfoModel>? _countryInfoModel = [];
+  String country;
+  _InfoState(this.country);
   @override
   void initState() {
     super.initState();
@@ -21,14 +24,14 @@ class _HomeState extends State<Home> {
   }
 
   void _getData() async {
-    _countryModel = (await ApiService().getCountries())!;
+    _countryInfoModel = (await ApiService().getCountry(country))!;
 
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
   @override
   Widget build(BuildContext context) {
-    _countryModel!.sort((a, b) => a.name.common.compareTo(b.name.common));
+    _countryInfoModel!.sort((a, b) => a.name.common.compareTo(b.name.common));
     return Scaffold(
       appBar: myAppBar("Test"),
       body: SingleChildScrollView(
@@ -60,7 +63,7 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              _countryModel == null || _countryModel!.isEmpty
+              _countryInfoModel == null || _countryInfoModel!.isEmpty
                   ? const Center(
                       child: CircularProgressIndicator(),
                       // child: Text('its null'),
@@ -70,16 +73,10 @@ class _HomeState extends State<Home> {
                       child: SafeArea(
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: _countryModel!.length,
+                          itemCount: _countryInfoModel!.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return Info(
-                                      _countryModel![index].name.common);
-                                }));
-                              },
+                              onTap: () {},
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -90,7 +87,7 @@ class _HomeState extends State<Home> {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(10.0)),
                                         child: Image.network(
-                                          _countryModel![index].flags.png,
+                                          _countryInfoModel![index].flags.png,
                                           height: 50.0,
                                           width: 50.0,
                                           fit: BoxFit.cover,
@@ -105,10 +102,11 @@ class _HomeState extends State<Home> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(_countryModel![index]
+                                          Text(_countryInfoModel![index]
                                               .name
                                               .common),
-                                          Text(_countryModel![index].capital),
+                                          Text(_countryInfoModel![index]
+                                              .capital),
                                         ],
                                       ),
                                     ],
