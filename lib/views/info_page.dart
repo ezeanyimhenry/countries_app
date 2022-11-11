@@ -36,17 +36,12 @@ class _InfoState extends State<Info> {
     if (_countryInfoModel![0].languages != null) {
       for (final name in languages!.keys) {
         final value = languages[name];
-        // print('$value');
         jsonObjects.add(value);
       }
     } else {
       jsonObjects.add("No item");
     }
     countryLang = jsonObjects[0];
-    // print(_countryInfoModel![0].languages);
-    // print(jsonObjects[0] ?? "Null");
-
-    // Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     return countryLang;
   }
 
@@ -176,7 +171,7 @@ class _InfoState extends State<Info> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text("Capital:",
+                                      Text("Sub Region:",
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.0,
@@ -185,7 +180,9 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].capital[0],
+                                        _countryInfoModel![index]
+                                            .subregion
+                                            .toString(),
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -197,7 +194,7 @@ class _InfoState extends State<Info> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text("Motto:",
+                                      Text("Capital:",
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.0,
@@ -247,7 +244,7 @@ class _InfoState extends State<Info> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text("Ethic Group:",
+                                      Text("Continent:",
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.0,
@@ -256,7 +253,7 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index].continents[0],
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -319,7 +316,9 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index].independent
+                                            ? "Independent"
+                                            : "Not Independent",
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -340,7 +339,7 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index].area,
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -352,7 +351,7 @@ class _InfoState extends State<Info> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text("Currency:",
+                                      Text("UN Member:",
                                           style: GoogleFonts.poppins(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16.0,
@@ -361,7 +360,9 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index]
+                                            .unMember
+                                            .toString(),
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -403,7 +404,7 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index].timezones[0],
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -466,7 +467,13 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index].car!.side ==
+                                                null
+                                            ? "No Items"
+                                            : _countryInfoModel![index]
+                                                .car!
+                                                .side
+                                                .toString(),
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),

@@ -18,21 +18,16 @@ class CountryInfoModel {
     required this.coatOfArms,
     required this.name,
     required this.capital,
+    required this.timezones,
+    required this.continents,
     required this.population,
+    required this.independent,
+    required this.unMember,
+    required this.area,
     this.region,
-    // this.motto,
+    this.subregion,
     this.languages,
-    // this.ethic,
-    // this.religion,
-    // this.government,
-    // this.independence,
-    // this.area,
-    // this.currency,
-    // this.gdp,
-    // this.timezone,
-    // this.dateformat,
-    // this.dailingcode,
-    // this.drivingside,
+    this.car,
   });
 
   Flags flags;
@@ -40,9 +35,16 @@ class CountryInfoModel {
   CoatOfArms coatOfArms;
   Name name;
   List<String> capital;
+  List<String> timezones;
+  List<String> continents;
   String population;
   String? region;
+  String area;
+  String? subregion;
   Map<String, dynamic>? languages;
+  Car? car;
+  bool independent;
+  bool unMember;
 
   factory CountryInfoModel.fromJson(Map<String, dynamic> json) =>
       CountryInfoModel(
@@ -53,9 +55,20 @@ class CountryInfoModel {
         capital: json["capital"] == null
             ? List<String>.from(["No Item"])
             : List<String>.from(json["capital"].map((x) => x)),
+        timezones: json["timezones"] == null
+            ? List<String>.from(["No Item"])
+            : List<String>.from(json["timezones"].map((x) => x)),
+        continents: json["continents"] == null
+            ? List<String>.from(["No Item"])
+            : List<String>.from(json["continents"].map((x) => x)),
         population: json["population"].toString(),
         region: json["region"],
+        area: json["area"].toString() ?? "No Record",
+        subregion: json["subregion"],
+        independent: json["independent"] ?? "No Record",
+        unMember: json["unMember"] ?? "No Record",
         languages: json["languages"],
+        car: json["car"] == null ? null : Car.fromJson(json["car"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,8 +78,19 @@ class CountryInfoModel {
         "name": name.toJson(),
         "capital":
             capital == null ? null : List<dynamic>.from(capital.map((x) => x)),
+        "timezones": timezones == null
+            ? null
+            : List<dynamic>.from(timezones.map((x) => x)),
+        "continents": continents == null
+            ? null
+            : List<dynamic>.from(continents.map((x) => x)),
         "population": population,
         "region": region,
+        "area": area,
+        "subregion": subregion,
+        "independent": independent,
+        "unMember": unMember,
+        "car": car!.toJson(),
         // "languages": languages!.toJson(),
       };
 }
@@ -88,6 +112,22 @@ class Flags {
   Map<String, dynamic> toJson() => {
         "png": png,
         "svg": svg,
+      };
+}
+
+class Car {
+  Car({
+    this.side,
+  });
+
+  String? side;
+
+  factory Car.fromJson(Map<String, dynamic> json) => Car(
+        side: json["side"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "side": side,
       };
 }
 
@@ -131,25 +171,105 @@ class CoatOfArms {
       };
 }
 
-// class Languages {
-//   Languages({
-//     required this.language,
-//     // required this.svg,
-//   });
+class Aed {
+  Aed({
+    required this.name,
+    required this.symbol,
+  });
 
-//   String? language;
-//   // String svg;
+  String name;
+  String symbol;
 
-//   factory Languages.fromJson(Map<String, dynamic> json) => Languages(
-//         language: json[0],
-//         // svg: json["svg"],
-//       );
+  factory Aed.fromJson(Map<String, dynamic> json) => Aed(
+        name: json["name"],
+        symbol: json["symbol"],
+      );
 
-//   Map<String, dynamic> toJson() => {
-//         "language": [0],
-//         // "svg": svg,
-//       };
-// }
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "symbol": symbol,
+      };
+}
+
+class Bam {
+  Bam({
+    required this.name,
+  });
+
+  String name;
+
+  factory Bam.fromJson(Map<String, dynamic> json) => Bam(
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+      };
+}
+
+class Demonyms {
+  Demonyms({
+    required this.eng,
+    required this.fra,
+  });
+
+  Eng? eng;
+  Eng? fra;
+
+  factory Demonyms.fromJson(Map<String, dynamic> json) => Demonyms(
+        eng: Eng.fromJson(json["eng"]),
+        fra: json["fra"] == null ? null : Eng.fromJson(json["fra"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "eng": eng!.toJson(),
+        "fra": fra == null ? null : fra!.toJson(),
+      };
+}
+
+class Eng {
+  Eng({
+    required this.f,
+    required this.m,
+  });
+
+  String f;
+  String m;
+
+  factory Eng.fromJson(Map<String, dynamic> json) => Eng(
+        f: json["f"],
+        m: json["m"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "f": f,
+        "m": m,
+      };
+}
+
+class Idd {
+  Idd({
+    required this.root,
+    required this.suffixes,
+  });
+
+  String root;
+  List<String>? suffixes;
+
+  factory Idd.fromJson(Map<String, dynamic> json) => Idd(
+        root: json["root"] == null ? null : json["root"],
+        suffixes: json["suffixes"] == null
+            ? null
+            : List<String>.from(json["suffixes"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "root": root == null ? null : root,
+        "suffixes": suffixes == null
+            ? null
+            : List<dynamic>.from(suffixes!.map((x) => x)),
+      };
+}
 
 class Name {
   Name({
