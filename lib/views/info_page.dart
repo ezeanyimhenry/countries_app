@@ -20,17 +20,19 @@ class _InfoState extends State<Info> {
   late List<CountryInfoModel>? _countryInfoModel = [];
   String country;
   _InfoState(this.country);
+
   @override
   void initState() {
     super.initState();
     _getData();
   }
 
-  void _getData() async {
+  _getLang() async {
     _countryInfoModel = (await ApiService().getCountry(country))!;
 
     var languages = _countryInfoModel![0].languages;
     List jsonObjects = [];
+    String countryLang = "";
 
     if (_countryInfoModel![0].languages != null) {
       for (final name in languages!.keys) {
@@ -41,10 +43,36 @@ class _InfoState extends State<Info> {
     } else {
       jsonObjects.add("No item");
     }
+    countryLang = jsonObjects[0];
+    print(_countryInfoModel![0].languages);
+    print(jsonObjects[0] ?? "Null");
+
+    // Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    return countryLang;
+  }
+
+  _getData() async {
+    _countryInfoModel = (await ApiService().getCountry(country))!;
+
+    var languages = _countryInfoModel![0].languages;
+    List jsonObjects = [];
+    String countryLang = "";
+
+    if (_countryInfoModel![0].languages != null) {
+      for (final name in languages!.keys) {
+        final value = languages[name];
+        print('$value');
+        jsonObjects.add(value);
+      }
+    } else {
+      jsonObjects.add("No item");
+    }
+    countryLang = jsonObjects[0];
     print(_countryInfoModel![0].languages);
     print(jsonObjects[0] ?? "Null");
 
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    return countryLang;
   }
 
   @override
@@ -231,11 +259,19 @@ class _InfoState extends State<Info> {
                                       SizedBox(
                                         width: 10.0,
                                       ),
-                                      // Text(
-                                      //   jsonObjects[0] ?? "Null",
-                                      //   style:
-                                      //       GoogleFonts.poppins(fontSize: 16.0),
-                                      // ),
+                                      FutureBuilder(
+                                          future: _getLang(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<dynamic> snapshot) {
+                                            if (!snapshot.hasData)
+                                              return new Container();
+                                            String content = snapshot.data!;
+                                            return new Text(
+                                              content,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 16.0),
+                                            );
+                                          })
                                     ],
                                   ),
                                   const SizedBox(
