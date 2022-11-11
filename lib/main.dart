@@ -10,16 +10,12 @@ class MyTheme with ChangeNotifier {
   }
 
   currentLogo() {
-    print(_isDark);
     String logo;
     if (_isDark == true) {
       logo = "images/logo.png";
-      // print(logo);
     } else {
       logo = "images/ex_logo.png";
-      // print(logo);
     }
-    print(logo);
     return logo;
   }
 

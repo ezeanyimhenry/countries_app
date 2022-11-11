@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     _countryModel!.sort((a, b) => a.name.common.compareTo(b.name.common));
     return Scaffold(
-      appBar: myAppBar("Test"),
+      appBar: myAppBar("Home"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -39,26 +39,63 @@ class _HomeState extends State<Home> {
               Container(
                 color: Theme.of(context).primaryColor,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: ListTile(
-                      leading: Icon(Icons.search),
-                      title: TextField(
-                        // controller: controller,
-                        decoration: InputDecoration(
-                            hintText: 'Search', border: InputBorder.none),
-                        // onChanged: onSearchTextChanged,
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.cancel),
-                        onPressed: () {
-                          // controller.clear();
-                          // onSearchTextChanged('');
-                        },
-                      ),
+                  padding: const EdgeInsets.all(3.0),
+                  child: ListTile(
+                    leading: Icon(Icons.search),
+                    title: TextField(
+                      // controller: controller,
+                      decoration: InputDecoration(
+                          hintText: 'Search Country', border: InputBorder.none),
+                      // onChanged: onSearchTextChanged,
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.cancel),
+                      onPressed: () {
+                        // controller.clear();
+                        // onSearchTextChanged('');
+                      },
                     ),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(Icons.language_outlined),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text("EN"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(Icons.filter_alt_outlined),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text("filter"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 15.0,
               ),
               _countryModel == null || _countryModel!.isEmpty
                   ? const Center(

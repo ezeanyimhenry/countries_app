@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:countries_app/model/country_info_model.dart';
 import 'package:countries_app/services/api_service.dart';
 import 'package:countries_app/app_bar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class Info extends StatefulWidget {
   final String country;
@@ -26,43 +29,36 @@ class _InfoState extends State<Info> {
   void _getData() async {
     _countryInfoModel = (await ApiService().getCountry(country))!;
 
+    var languages = _countryInfoModel![0].languages;
+    List jsonObjects = [];
+
+    if (_countryInfoModel![0].languages != null) {
+      for (final name in languages!.keys) {
+        final value = languages[name];
+        print('$value');
+        jsonObjects.add(value);
+      }
+    } else {
+      jsonObjects.add("No item");
+    }
+    print(_countryInfoModel![0].languages);
+    print(jsonObjects[0] ?? "Null");
+
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
   }
 
   @override
   Widget build(BuildContext context) {
+    String title = country;
     _countryInfoModel!.sort((a, b) => a.name.common.compareTo(b.name.common));
+
     return Scaffold(
-      appBar: myAppBar("Test"),
+      appBar: myAppBar(title),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Container(
-                color: Theme.of(context).primaryColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: ListTile(
-                      leading: Icon(Icons.search),
-                      title: TextField(
-                        // controller: controller,
-                        decoration: InputDecoration(
-                            hintText: 'Search', border: InputBorder.none),
-                        // onChanged: onSearchTextChanged,
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.cancel),
-                        onPressed: () {
-                          // controller.clear();
-                          // onSearchTextChanged('');
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               _countryInfoModel == null || _countryInfoModel!.isEmpty
                   ? const Center(
                       child: CircularProgressIndicator(),
@@ -80,34 +76,396 @@ class _InfoState extends State<Info> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
+                                  CarouselSlider(
+                                    items: [
+                                      Container(
+                                        margin: EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                _countryInfoModel![index]
+                                                    .flags
+                                                    .png),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                _countryInfoModel![index]
+                                                    .flags
+                                                    .png),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                _countryInfoModel![index]
+                                                    .coatOfArms
+                                                    .png),
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                    options: CarouselOptions(
+                                      height: 200.0,
+                                      enlargeCenterPage: true,
+                                      autoPlay: true,
+                                      aspectRatio: 16 / 9,
+                                      autoPlayCurve: Curves.fastOutSlowIn,
+                                      enableInfiniteScroll: true,
+                                      autoPlayAnimationDuration:
+                                          Duration(milliseconds: 800),
+                                      viewportFraction: 1,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.0,
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10.0)),
-                                        child: Image.network(
-                                          _countryInfoModel![index].flags.png,
-                                          height: 50.0,
-                                          width: 50.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                      Text("Population:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
                                       SizedBox(
                                         width: 10.0,
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(_countryInfoModel![index]
-                                              .name
-                                              .common),
-                                          Text(_countryInfoModel![index]
-                                              .capital),
-                                        ],
+                                      Text(
+                                        _countryInfoModel![index].population,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Region:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Capital:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].capital,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Motto:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].capital,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Official Language:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      // Text(
+                                      //   jsonObjects[0] ?? "Null",
+                                      //   style:
+                                      //       GoogleFonts.poppins(fontSize: 16.0),
+                                      // ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Ethic Group:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Religion:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Government:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Independence:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Area:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Currency:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("GDP:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Time Zone:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Date Format:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Dailing Code:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text("Driving Side:",
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.0,
+                                          )),
+                                      SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      Text(
+                                        _countryInfoModel![index].name.common,
+                                        style:
+                                            GoogleFonts.poppins(fontSize: 16.0),
                                       ),
                                     ],
                                   ),
