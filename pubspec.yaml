@@ -32,6 +32,9 @@ dependencies:
   carousel_slider: ^4.0.0
   google_fonts: ^3.0.1
   intl: ^0.17.0
+  language_builder: ^0.1.2
+  sliding_up_panel: ^2.0.0+1
+  accordion: ^2.5.1
 
 dev_dependencies:
   flutter_test:

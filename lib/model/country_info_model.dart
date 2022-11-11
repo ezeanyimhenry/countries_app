@@ -3,7 +3,6 @@
 //     final countryInfoModel = countryInfoModelFromJson(jsonString);
 
 import 'dart:convert';
-import 'dart:ffi';
 
 List<CountryInfoModel> countryInfoModelFromJson(String str) =>
     List<CountryInfoModel>.from(
@@ -40,7 +39,7 @@ class CountryInfoModel {
   Maps maps;
   CoatOfArms coatOfArms;
   Name name;
-  String capital;
+  List<String> capital;
   String population;
   String? region;
   Map<String, dynamic>? languages;
@@ -51,10 +50,12 @@ class CountryInfoModel {
         maps: Maps.fromJson(json["maps"]),
         coatOfArms: CoatOfArms.fromJson(json["coatOfArms"]),
         name: Name.fromJson(json["name"]),
-        capital: json["capital"].toString(),
+        capital: json["capital"] == null
+            ? List<String>.from(["No Item"])
+            : List<String>.from(json["capital"].map((x) => x)),
         population: json["population"].toString(),
         region: json["region"],
-        languages: json!["languages"],
+        languages: json["languages"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,7 +63,8 @@ class CountryInfoModel {
         "maps": maps.toJson(),
         "coatOfArms": coatOfArms.toJson(),
         "name": name.toJson(),
-        "capital": capital,
+        "capital":
+            capital == null ? null : List<dynamic>.from(capital.map((x) => x)),
         "population": population,
         "region": region,
         // "languages": languages!.toJson(),

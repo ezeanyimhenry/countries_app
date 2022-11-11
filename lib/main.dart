@@ -1,6 +1,8 @@
 import 'package:countries_app/views/home_page.dart';
 import 'package:flutter/material.dart';
+// import 'package:language_builder/language_builder.dart';
 import 'package:responsiveui_container/responsiveui_container.dart';
+// import 'languages.dart';
 
 class MyTheme with ChangeNotifier {
   static bool _isDark = true;
@@ -19,9 +21,20 @@ class MyTheme with ChangeNotifier {
     return logo;
   }
 
+  iconMode() {
+    IconData icon;
+    if (_isDark == true) {
+      icon = Icons.light_mode_outlined;
+    } else {
+      icon = Icons.dark_mode;
+    }
+    return icon;
+  }
+
   void switchTheme() {
     _isDark = !_isDark;
     currentLogo();
+    iconMode();
     notifyListeners();
   }
 }
@@ -50,70 +63,31 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    const MaterialColor white = MaterialColor(
+      0xFFFFFFFF,
+      <int, Color>{
+        50: Color(0xFFFFFFFF),
+        100: Color(0xFFFFFFFF),
+        200: Color(0xFFFFFFFF),
+        300: Color(0xFFFFFFFF),
+        400: Color(0xFFFFFFFF),
+        500: Color(0xFFFFFFFF),
+        600: Color(0xFFFFFFFF),
+        700: Color(0xFFFFFFFF),
+        800: Color(0xFFFFFFFF),
+        900: Color(0xFFFFFFFF),
+      },
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Explore',
-      // home: LanguageBuilder(
-      //   useDeviceLanguage: false,
-      //   defaultLanguage: 'en',
-      //   textsMap: Languages.languages,
-      //   child: const MyHomePage(title: 'My Resume'),
-      //   splash: Container(),
-      // ),
-      theme: ThemeData.light(),
+      theme: ThemeData(primarySwatch: white),
       darkTheme: ThemeData.dark(),
       themeMode: currentTheme.currentTheme(),
       home: const RContainer(
         mobile: Home(),
         // tablet: TabHomePage(),
         // desktop: DesktopHomePage(),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

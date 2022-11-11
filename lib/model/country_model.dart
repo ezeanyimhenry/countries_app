@@ -19,18 +19,20 @@ class CountryModel {
 
   Flags flags;
   Name name;
-  String capital;
-
+  List<String>? capital;
   factory CountryModel.fromJson(Map<String, dynamic> json) => CountryModel(
         flags: Flags.fromJson(json["flags"]),
         name: Name.fromJson(json["name"]),
-        capital: json["capital"].toString(),
+        capital: json["capital"] == null
+            ? List<String>.from(["No Item"])
+            : List<String>.from(json["capital"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "flags": flags.toJson(),
         "name": name.toJson(),
-        "capital": capital,
+        "capital":
+            capital == null ? null : List<dynamic>.from(capital!.map((x) => x)),
       };
 }
 

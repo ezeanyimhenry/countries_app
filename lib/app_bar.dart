@@ -1,6 +1,4 @@
-import 'package:countries_app/views/info_page.dart';
 import 'package:flutter/material.dart';
-import 'package:countries_app/views/info_page.dart';
 import 'package:countries_app/main.dart';
 
 PreferredSizeWidget myAppBar(String? title) {
@@ -25,7 +23,7 @@ PreferredSizeWidget myAppBar(String? title) {
     actions: <Widget>[
       IconButton(
         icon: Icon(
-          Icons.wb_sunny_outlined,
+          currentTheme.iconMode(),
           color: Colors.white,
         ),
         onPressed: () {

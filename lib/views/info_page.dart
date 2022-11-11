@@ -1,11 +1,10 @@
-import 'package:countries_app/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:countries_app/model/country_info_model.dart';
 import 'package:countries_app/services/api_service.dart';
 import 'package:countries_app/app_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 class Info extends StatefulWidget {
   final String country;
@@ -37,15 +36,15 @@ class _InfoState extends State<Info> {
     if (_countryInfoModel![0].languages != null) {
       for (final name in languages!.keys) {
         final value = languages[name];
-        print('$value');
+        // print('$value');
         jsonObjects.add(value);
       }
     } else {
       jsonObjects.add("No item");
     }
     countryLang = jsonObjects[0];
-    print(_countryInfoModel![0].languages);
-    print(jsonObjects[0] ?? "Null");
+    // print(_countryInfoModel![0].languages);
+    // print(jsonObjects[0] ?? "Null");
 
     // Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     return countryLang;
@@ -54,25 +53,7 @@ class _InfoState extends State<Info> {
   _getData() async {
     _countryInfoModel = (await ApiService().getCountry(country))!;
 
-    var languages = _countryInfoModel![0].languages;
-    List jsonObjects = [];
-    String countryLang = "";
-
-    if (_countryInfoModel![0].languages != null) {
-      for (final name in languages!.keys) {
-        final value = languages[name];
-        print('$value');
-        jsonObjects.add(value);
-      }
-    } else {
-      jsonObjects.add("No item");
-    }
-    countryLang = jsonObjects[0];
-    print(_countryInfoModel![0].languages);
-    print(jsonObjects[0] ?? "Null");
-
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    return countryLang;
   }
 
   @override
@@ -92,7 +73,7 @@ class _InfoState extends State<Info> {
                       child: CircularProgressIndicator(),
                       // child: Text('its null'),
                     )
-                  : Container(
+                  : SizedBox(
                       height: 1000,
                       child: SafeArea(
                         child: ListView.builder(
@@ -204,7 +185,7 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].capital,
+                                        _countryInfoModel![index].capital[0],
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
@@ -225,7 +206,7 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].capital,
+                                        _countryInfoModel![index].capital[0],
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
