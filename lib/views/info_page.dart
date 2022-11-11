@@ -128,20 +128,6 @@ class _InfoState extends State<Info> {
                                           image: DecorationImage(
                                             image: NetworkImage(
                                                 _countryInfoModel![index]
-                                                    .flags
-                                                    .png),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                _countryInfoModel![index]
                                                     .coatOfArms
                                                     .png),
                                             fit: BoxFit.contain,
@@ -197,7 +183,7 @@ class _InfoState extends State<Info> {
                                         width: 10.0,
                                       ),
                                       Text(
-                                        _countryInfoModel![index].name.common,
+                                        _countryInfoModel![index].region!,
                                         style:
                                             GoogleFonts.poppins(fontSize: 16.0),
                                       ),
