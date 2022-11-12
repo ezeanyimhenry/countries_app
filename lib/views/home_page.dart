@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:countries_app/model/country_model.dart';
 import 'package:countries_app/services/api_service.dart';
 import 'package:countries_app/app_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:language_builder/language_builder.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:accordion/accordion.dart';
@@ -40,12 +41,16 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var bgcolor = Theme.of(context).backgroundColor;
+
     _countryModel!.sort((a, b) => a.name.common.compareTo(b.name.common));
     return Scaffold(
       appBar: myAppBar("Home"),
       body: SlidingUpPanel(
+        maxHeight: MediaQuery.of(context).size.height * 0.3,
         controller: panelController,
         panelBuilder: (controller) => PanelWidget(
+          bgcolor: bgcolor,
           controller: controller,
           panelController: panelController,
         ),
@@ -307,9 +312,13 @@ class _HomeState extends State<Home> {
 class PanelWidget extends StatelessWidget {
   final ScrollController controller;
   final PanelController panelController;
+  final Color bgcolor;
 
   const PanelWidget(
-      {Key? key, required this.controller, required this.panelController})
+      {Key? key,
+      required this.controller,
+      required this.bgcolor,
+      required this.panelController})
       : super(key: key);
 
   @override
@@ -321,34 +330,55 @@ class PanelWidget extends StatelessWidget {
         SizedBox(
           height: 36,
         ),
-        buildLanguageList(),
+        buildFilter(),
         SizedBox(height: 24)
       ],
     );
   }
 
-  Widget buildLanguageList() => Container(
+  Widget buildFilter() => Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Accordion(
-                headerPadding: EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Filter",
+                  style: GoogleFonts.poppins(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
+                IconButton(onPressed: null, icon: Icon(Icons.cancel))
+              ],
+            ),
+            Accordion(
+                headerBackgroundColor: bgcolor,
+                contentBackgroundColor: bgcolor,
+                headerPadding: EdgeInsets.all(0),
                 children: [
                   AccordionSection(
-                    header: Text('Continents'),
-                    content: Text("List of continents"),
+                    header: Text(
+                      'Continents',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                    content: Column(
+                      children: [
+                        Text("List of continents"),
+                        // Text(_countryModel)
+                      ],
+                    ),
+                  ),
+                  AccordionSection(
+                    header: Text(
+                      'Time Zone',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                    content: Text("List of time zones"),
                   ),
                 ]),
-            Accordion(children: [
-              AccordionSection(
-                header: Text('Time Zone'),
-                content: Text("List of time zones"),
-              ),
-            ]),
           ],
         ),
       );

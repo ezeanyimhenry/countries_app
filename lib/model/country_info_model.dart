@@ -15,7 +15,7 @@ class CountryInfoModel {
   CountryInfoModel({
     required this.flags,
     required this.maps,
-    required this.coatOfArms,
+    this.coatOfArms,
     required this.name,
     required this.capital,
     required this.timezones,
@@ -32,7 +32,7 @@ class CountryInfoModel {
 
   Flags flags;
   Maps maps;
-  CoatOfArms coatOfArms;
+  CoatOfArms? coatOfArms;
   Name name;
   List<String> capital;
   List<String> timezones;
@@ -50,7 +50,9 @@ class CountryInfoModel {
       CountryInfoModel(
         flags: Flags.fromJson(json["flags"]),
         maps: Maps.fromJson(json["maps"]),
-        coatOfArms: CoatOfArms.fromJson(json["coatOfArms"]),
+        coatOfArms: json["coatOfArms"] == null
+            ? null
+            : CoatOfArms.fromJson(json["coatOfArms"]),
         name: Name.fromJson(json["name"]),
         capital: json["capital"] == null
             ? List<String>.from(["No Item"])
@@ -62,19 +64,19 @@ class CountryInfoModel {
             ? List<String>.from(["No Item"])
             : List<String>.from(json["continents"].map((x) => x)),
         population: json["population"].toString(),
-        region: json["region"],
+        region: json["region"] ?? "No Record",
         area: json["area"].toString() ?? "No Record",
-        subregion: json["subregion"],
+        subregion: json["subregion"] ?? "No Record",
         independent: json["independent"] ?? "No Record",
         unMember: json["unMember"] ?? "No Record",
-        languages: json["languages"],
+        languages: json["languages"] ?? "No Record",
         car: json["car"] == null ? null : Car.fromJson(json["car"]),
       );
 
   Map<String, dynamic> toJson() => {
         "flags": flags.toJson(),
         "maps": maps.toJson(),
-        "coatOfArms": coatOfArms.toJson(),
+        "coatOfArms": coatOfArms!.toJson(),
         "name": name.toJson(),
         "capital":
             capital == null ? null : List<dynamic>.from(capital.map((x) => x)),
@@ -161,13 +163,13 @@ class CoatOfArms {
   String svg;
 
   factory CoatOfArms.fromJson(Map<String, dynamic> json) => CoatOfArms(
-        png: json["png"],
-        svg: json["svg"],
+        png: json["png"] == null ? "" : json["png"],
+        svg: json["svg"] == null ? "" : json["svg"],
       );
 
   Map<String, dynamic> toJson() => {
-        "png": png,
-        "svg": svg,
+        "png": png == null ? "" : png,
+        "svg": svg == null ? "" : svg,
       };
 }
 

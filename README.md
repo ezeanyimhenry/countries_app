@@ -1,16 +1,38 @@
-# countries_app
+# Explore App
 
-A new Flutter project.
+Built with Flutter.
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
+This app shows a list of all countries and capital, with detailed description about each country.
 
-A few resources to get you started if this is your first Flutter project:
+## Libraries Used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- http: Used to fetch online API
+- responsiveui_container: For the app responsiveness
+- carousel_slider: Images slider used
+- google_fonts: Series of fonts on the app
+- language_builder: For Language Transaltion
+- sliding_up_panel: Filter Panel and Language Panel built with this library
+- accordion: Filter accordion built
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  ## Challenges Faced
+
+  - Handling Network erros was very challenging
+  - Had issues with Null value check
+  - Generation model from API hwas a huge challenge
+
+  ### featured I'd like to add
+
+
+  ## Download App
+
+- [APK](https://docs.flutter.dev/get-started/codelab)
+
+## Test on Appetize.io
+- [Appetize.io](https://docs.flutter.dev/cookbook)
+
+
+### UI Design
+
+[Figma Prototype](https://www.figma.com/file/v9AXj4VZNnx26fTthrPbhX/Explore?node-id=0%3A1)

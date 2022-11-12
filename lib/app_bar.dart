@@ -24,7 +24,9 @@ PreferredSizeWidget myAppBar(String? title) {
       IconButton(
         icon: Icon(
           currentTheme.iconMode(),
-          color: Colors.white,
+          color: currentTheme.iconMode() == Icons.dark_mode
+              ? Colors.black
+              : Colors.white,
         ),
         onPressed: () {
           currentTheme.switchTheme();

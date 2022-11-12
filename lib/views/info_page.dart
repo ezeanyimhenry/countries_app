@@ -104,8 +104,13 @@ class _InfoState extends State<Info> {
                                           image: DecorationImage(
                                             image: NetworkImage(
                                                 _countryInfoModel![index]
-                                                    .coatOfArms
-                                                    .png),
+                                                            .coatOfArms!
+                                                            .png ==
+                                                        null
+                                                    ? ""
+                                                    : _countryInfoModel![index]
+                                                        .coatOfArms!
+                                                        .png),
                                             fit: BoxFit.contain,
                                           ),
                                         ),
