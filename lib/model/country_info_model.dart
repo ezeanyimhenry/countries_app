@@ -65,7 +65,7 @@ class CountryInfoModel {
             : List<String>.from(json["continents"].map((x) => x)),
         population: json["population"].toString(),
         region: json["region"] ?? "No Record",
-        area: json["area"].toString() ?? "No Record",
+        area: json["area"].toString(),
         subregion: json["subregion"] ?? "No Record",
         independent: json["independent"] ?? "No Record",
         unMember: json["unMember"] ?? "No Record",
