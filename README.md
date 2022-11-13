@@ -27,10 +27,10 @@ This app shows a list of all countries and capital, with detailed description ab
 
   ## Download App
 
-- [APK](https://docs.flutter.dev/get-started/codelab)
+- [APK](https://drive.google.com/file/d/1xNeA4la9pQWYV50RrkeXbLZrKETyP1zx/view?usp=sharing)
 
 ## Test on Appetize.io
-- [Appetize.io](https://appetize.io/embed/a3gvih463nzbrkh4vsgycu6gk4?device=pixel4&osVersion=12.0&scale=75&deviceColor=black)
+- [Appetize.io](https://appetize.io/embed/pduhxgiez5kamqpql57bckqohu?device=pixel4&osVersion=12.0&scale=75&deviceColor=black)
 
 
 ### UI Design
