@@ -47,7 +47,12 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: myAppBar("Home"),
       body: SlidingUpPanel(
-        maxHeight: MediaQuery.of(context).size.height * 0.3,
+        padding: EdgeInsets.all(24),
+        header: Text(
+          "Filter",
+          style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        maxHeight: MediaQuery.of(context).size.height * 0.6,
         controller: panelController,
         panelBuilder: (controller) => PanelWidget(
           bgcolor: bgcolor,
@@ -314,7 +319,30 @@ class PanelWidget extends StatelessWidget {
   final PanelController panelController;
   final Color bgcolor;
 
-  const PanelWidget(
+  var continents = [
+    "Asia",
+    "Africa",
+    "Europe",
+    "North America",
+    "South America",
+    "Australia",
+    "Antarctica",
+  ];
+  var timezones = [
+    "GMT+1:00",
+    "GMT+2:00",
+    "GMT+3:00",
+    "GMT+4:00",
+    "GMT+5:00",
+    "GMT+6:00",
+    "GMT+7:00",
+    "GMT+8:00",
+  ];
+  final List<String> _selection = [];
+
+  bool checkBoxValue = false;
+
+  PanelWidget(
       {Key? key,
       required this.controller,
       required this.bgcolor,
@@ -337,51 +365,220 @@ class PanelWidget extends StatelessWidget {
   }
 
   Widget buildFilter() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        // padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ExpansionTile(
+              title: Text(
+                "Continents",
+                style: GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.w600),
+              ),
               children: [
-                Text(
-                  "Filter",
-                  style: GoogleFonts.poppins(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                ListTile(
+                  title: Text(continents[0]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[0]),
                 ),
-                IconButton(onPressed: null, icon: Icon(Icons.cancel))
+                ListTile(
+                  title: Text(continents[1]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[1]),
+                ),
+                ListTile(
+                  title: Text(continents[2]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[2]),
+                ),
+                ListTile(
+                  title: Text(continents[3]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[3]),
+                ),
+                ListTile(
+                  title: Text(continents[4]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[4]),
+                ),
+                ListTile(
+                  title: Text(continents[5]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[5]),
+                ),
+                ListTile(
+                  title: Text(continents[6]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(continents[6]),
+                ),
               ],
             ),
-            Accordion(
-                headerBackgroundColor: bgcolor,
-                contentBackgroundColor: bgcolor,
-                headerPadding: EdgeInsets.all(0),
-                children: [
-                  AccordionSection(
-                    header: Text(
-                      'Continents',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w600),
-                    ),
-                    content: Column(
-                      children: [
-                        Text("List of continents"),
-                        // Text(_countryModel)
-                      ],
-                    ),
+            ExpansionTile(
+              title: Text(
+                "Time Zones",
+                style: GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.w600),
+              ),
+              children: [
+                ListTile(
+                  title: Text(timezones[0]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
                   ),
-                  AccordionSection(
-                    header: Text(
-                      'Time Zone',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w600),
-                    ),
-                    content: Text("List of time zones"),
+                  onTap: select(timezones[0]),
+                ),
+                ListTile(
+                  title: Text(timezones[1]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
                   ),
-                ]),
+                  onTap: select(timezones[1]),
+                ),
+                ListTile(
+                  title: Text(timezones[2]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(timezones[2]),
+                ),
+                ListTile(
+                  title: Text(timezones[3]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(timezones[3]),
+                ),
+                ListTile(
+                  title: Text(timezones[4]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(timezones[4]),
+                ),
+                ListTile(
+                  title: Text(timezones[5]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(timezones[5]),
+                ),
+                ListTile(
+                  title: Text(timezones[6]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(timezones[6]),
+                ),
+                ListTile(
+                  title: Text(timezones[7]),
+                  trailing: Checkbox(
+                    value: checkBoxValue,
+                    onChanged: (value) {
+                      checkBoxValue = value!;
+                    },
+                  ),
+                  onTap: select(timezones[7]),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: null,
+                  child: Text(
+                    "Reset",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    // disabledBackgroundColor: Colors.green,
+                    // disabledForegroundColor: Colors.green,
+                    textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontStyle: FontStyle.normal),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: null,
+                  child: Text(
+                    "Show Results",
+                    style: GoogleFonts.poppins(
+                        fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      disabledForegroundColor: Colors.white,
+                      disabledBackgroundColor:
+                          Color.fromARGB(255, 225, 94, 29)),
+                ),
+              ],
+            ),
           ],
         ),
       );
+}
+
+select(name) {
+  List<String> _selection = [];
+  _selection.add(name);
+  // print(name);
 }
 
 List<CountryModel> _searchResult = [];
